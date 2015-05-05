@@ -1,7 +1,6 @@
 # run `vagrant plugin install vagrant-cachier` before `vagrant up`
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64" #"ubuntu/ubuntu-core-devel-amd64" 
-  v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/repo", "1"]
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.auto_detect = false
 #    config.cache.enable :generic, {
@@ -27,4 +26,5 @@ Vagrant.configure("2") do |config|
     v.cpus = 2
   end
   config.vm.synced_folder "repo", "/home/vagrant/repo"
+  config.vm.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/repo", "1"]
 end
