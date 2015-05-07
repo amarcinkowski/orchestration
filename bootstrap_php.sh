@@ -7,6 +7,10 @@ export APP_DIR=/var/www
 export REPO_DIR=/home/vagrant/repo
 export SCRIPTS_DIR=$APP_DIR/scripts
 github_projects=(hospitalpage hospitalplugin hospitaltheme punction epidemio)
+HP=/var/www/vendor/amarcinkowski/hospitalplugin
+HT=/var/www/wp-content/themes/responsive-child
+P=/var/www/wp-content/plugins/punction
+E=/var/www/wp-content/plugins/epidemio
 
 source /vagrant/functions.sh
 
@@ -24,17 +28,8 @@ function run_tests {
   $SCRIPTS_DIR/install-wp-tests.sh
   cd $APP_DIR
   phpunit -c phpunit-wpdb.xml
-}
-
-function link_projects {
-  HP=/var/www/vendor/amarcinkowski/hospitalplugin
-  HT=/var/www/wp-content/themes/responsive-child
-  P=/var/www/wp-content/plugins/punction
-  E=/var/www/wp-content/plugins/epidemio
-  replace_lib_with_git $HP hospitalplugin
-  replace_lib_with_git $HT hospitaltheme
-  replace_lib_with_git $P punction
-  replace_lib_with_git $E epidemio
+  cd $P
+  phpunit
 }
 
 # ----------------------
@@ -44,5 +39,8 @@ source $APP_DIR/resources/.env.bash
 sudo apt-get update
 sudo $SCRIPTS_DIR/install-server.sh
 wp_prepare $GITHUB_TOKEN
-link_projects 
+replace_lib_with_git $HP hospitalplugin
+replace_lib_with_git $HT hospitaltheme
+replace_lib_with_git $P punction
+replace_lib_with_git $E epidemio
 run_tests

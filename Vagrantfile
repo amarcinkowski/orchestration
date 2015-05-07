@@ -6,9 +6,9 @@ Vagrant.configure("2") do |config|
 end
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.auto_detect = false
-#    config.cache.enable :generic, {
-#      "wget" => { cache_dir: "~/.vagrant.d/cache/wget" },
-#    }
+    config.cache.enable :generic, {
+      "wget" => { cache_dir: "/vagrant/cache/wget" },
+    }
 #    config.cache.enable_nfs  = true
     config.cache.enable :apt
     config.cache.enable :composer
@@ -23,6 +23,9 @@ end
     java.vm.network "private_network", ip: "192.168.50.3"
     java.vm.provision :shell, :path => "bootstrap_java.sh", :args => ENV["GITHUB_OAUTH_TOKEN"], privileged: false
     java.vm.network :forwarded_port, host: 8080, guest: 8080
+    java.vm.network :forwarded_port, host: 8005, guest: 8005
+    java.vm.network :forwarded_port, host: 8009, guest: 8009
+    java.vm.network :forwarded_port, host: 8443, guest: 8443
   end
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048

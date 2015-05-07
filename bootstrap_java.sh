@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CACHE_DIR=~/cache/wget
+CACHE_DIR=/vagrant/cache/wget
 #DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 #sudo echo "Europe/Warsaw" > /etc/timezone
 #sudo dpkg-reconfigure -f noninteractive tzdata
