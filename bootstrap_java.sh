@@ -14,7 +14,7 @@ function java8 {
 }
 
 function tomcat8 {
-  wget http://mirrors.ibiblio.org/apache/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
+  wget -N -P $CACHE_DIR http://mirrors.ibiblio.org/apache/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
   tar xvzf apache-tomcat-8.0.21.tar.gz
   sudo mv apache-tomcat-8.0.21 /opt/tomcat
   sudo echo '<?xml version="1.0" encoding="UTF-8"?>
@@ -69,7 +69,7 @@ function javadevtools {
 function glassfish {
   echo "glassfish download...."
   cd /opt
-  wget -q http://dlc.sun.com.edgesuite.net/glassfish/4.1/release/glassfish-4.1.zip
+  wget -N -P $CACHE_DIR http://dlc.sun.com.edgesuite.net/glassfish/4.1/release/glassfish-4.1.zip
   echo "glassfish unzip..."
   unzip -q glassfish-4.1.zip
   cd /opt/glassfish4/bin
