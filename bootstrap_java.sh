@@ -51,10 +51,24 @@ function tomee {
   /opt/tomee/bin/startup.sh
 }
 
+function maven {
+  sudo echo '<settings>
+  <localRepository>/vagrant/cache/mvn_repo</localRepository>
+    <servers>
+    <server>
+    <id>serwer</id>
+    <username>admin</username>
+    <password>mUzumaP2</password>
+    </server>
+    </servers>
+  </settings>' > /home/vagrant/.m2/settings.xml
+  sudo apt-get install -y maven
+}
+
 # -----------------------
 sudo apt-get install -y vim curl git 
 sudo apt-get install -y samba cifs-utils
-sudo apt-get install -y maven
+maven
 java8
 tomee
 
