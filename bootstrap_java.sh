@@ -5,12 +5,34 @@ CACHE_DIR=/vagrant/cache/wget
 #sudo echo "Europe/Warsaw" > /etc/timezone
 #sudo dpkg-reconfigure -f noninteractive tzdata
 
-function java8 {
+function clone_projects {
+  sudo apt-get install -y git
+  cd /vagrant/repo
+  git clone http://siataman:@wsz.git.cloudforge.com/hospital.git
+  cd hospital/hospitalwidgetset
+  mvn install
+  cd ../hospitaldb
+  mvn install
+  cd ../aparatura
+  mvn tomcat7:redeploy
+}
+
+function java8repo {
   sudo add-apt-repository -y ppa:webupd8team/java
   sudo apt-get update
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
   sudo apt-get install -y oracle-java8-installer
   sudo apt-get install -y oracle-java8-set-default
+}
+
+function java8 {
+  wget -N -P $CACHE_DIR --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.tar.gz"
+  sudo mkdir /opt/jdk
+  sudo tar -zxf $CACHE_DIR/jdk-8u45-linux-x64.tar.gz -C /opt/jdk
+  sudo update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_45/bin/java 1081
+  sudo update-alternatives --set java /opt/jdk/jdk1.8.0_45/bin/java 
+  sudo update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_45/bin/javac 1081
+  sudo update-alternatives --display java
 }
 
 function tomcat8 {
@@ -25,7 +47,7 @@ function tomcat8 {
 }
 
 function tomee {
-  wget -N -P $CACHE_DIR http://ftp.ps.pl/pub/apache/tomee/tomee-1.7.1/apache-tomee-1.7.1-plume.tar.gz
+  wget -N -P $CACHE_DIR http://archive.apache.org/dist/tomee/tomee-1.7.1/apache-tomee-1.7.1-plume.tar.gz
   tar xvzf $CACHE_DIR/apache-tomee-1.7.1-plume.tar.gz
   sudo mv apache-tomee-plume-1.7.1 /opt/tomee
   wget -N -P $CACHE_DIR http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.35.tar.gz
@@ -52,6 +74,8 @@ function tomee {
 }
 
 function maven {
+  FILE="/home/vagrant/.m2/settings.xml"
+  mkdir -p "$(dirname "$FILE")" && touch "$FILE"
   sudo echo '<settings>
   <localRepository>/vagrant/cache/mvn_repo</localRepository>
     <servers>
@@ -61,24 +85,21 @@ function maven {
     <password>mUzumaP2</password>
     </server>
     </servers>
-  </settings>' > /home/vagrant/.m2/settings.xml
+  </settings>' > $FILE
   sudo apt-get install -y maven
 }
 
 # -----------------------
-sudo apt-get install -y vim curl git 
-sudo apt-get install -y samba cifs-utils
-maven
+#sudo apt-get install -y vim curl git 
 java8
+maven
 tomee
+sudo apt-get install -y mysql-client
+#sudo apt-get install -y samba cifs-utils
+clone_projects
+
 
 #curl -sL https://deb.nodesource.com/setup | sudo bash -
-#javadev
-function javadevtools {
-  sudo apt-get install -y maven
-  ln -s /vagrant/settings.xml /home/vagrant/.m2/settings.xml
-}
-
 #glassfish
 function glassfish {
   echo "glassfish download...."
