@@ -70,7 +70,9 @@ function tomee {
 	</Resource>
 	</tomee>' > /opt/tomee/conf/tomee.xml
   #sudo chown root: /opt/tomee/conf/tomee.xml # read-only prevent overwrite
-  /opt/tomee/bin/startup.sh
+  export JPDA_ADDRESS=8001
+  export JPDA_TRANSPORT=dt_socket
+  /opt/tomee/bin/catalina.sh jpda start
 }
 
 function maven {
