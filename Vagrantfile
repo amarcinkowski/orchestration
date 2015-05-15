@@ -23,6 +23,7 @@ end
     java.vm.network "private_network", ip: "192.168.50.3"
     java.vm.provision :shell, :path => "bootstrap_java.sh", :args => ENV["GITHUB_OAUTH_TOKEN"], privileged: false
     java.vm.network :forwarded_port, host: 8080, guest: 8080
+    java.vm.network :forwarded_port, host: 8001, guest: 8001 # JPDA debug port
     java.vm.network :forwarded_port, host: 8005, guest: 8005
     java.vm.network :forwarded_port, host: 8009, guest: 8009
     java.vm.network :forwarded_port, host: 8443, guest: 8443
