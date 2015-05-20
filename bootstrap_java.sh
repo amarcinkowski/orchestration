@@ -35,19 +35,10 @@ function java8 {
   sudo update-alternatives --display java
 }
 
-function tomcat8 {
-  wget -N -P $CACHE_DIR http://mirrors.ibiblio.org/apache/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
-  tar xvzf apache-tomcat-8.0.21.tar.gz
-  sudo mv apache-tomcat-8.0.21 /opt/tomcat
-  sudo echo '<?xml version="1.0" encoding="UTF-8"?>
-	<tomcat-users version="1.0" xmlns="http://tomcat.apache.org/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd">
-	<user password="mUzumaP2" roles="admin-gui,manager-gui,manager-script" username="admin"/>
-	</tomcat-users>' > /opt/tomcat/conf/tomcat-users.xml
-  /opt/tomcat/bin/startup.sh
-}
 
 function tomee {
   wget -N -P $CACHE_DIR http://archive.apache.org/dist/tomee/tomee-1.7.1/apache-tomee-1.7.1-plume.tar.gz
+  #wget -N -P $CACHE_DIR http://mirrors.ibiblio.org/apache/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
   tar xvzf $CACHE_DIR/apache-tomee-1.7.1-plume.tar.gz
   sudo mv apache-tomee-plume-1.7.1 /opt/tomee
   wget -N -P $CACHE_DIR http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.35.tar.gz
@@ -57,7 +48,7 @@ function tomee {
         <tomcat-users version="1.0" xmlns="http://tomcat.apache.org/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd">
         <role rolename="tomee-admin" />
         <user username="tomee" password="tomee" roles="tomee-admin" />
-        <user password="mUzumaP2" roles="admin-gui,manager-gui,manager-script" username="admin"/>
+        <user password="pass" roles="admin-gui,manager-gui,manager-script" username="admin"/>
         </tomcat-users>' > /opt/tomee/conf/tomcat-users.xml
   sudo echo '<?xml version="1.0" encoding="UTF-8"?>
 	<tomee>
@@ -86,7 +77,7 @@ function tomee {
  sudo chmod 755 /etc/init.d/tomcat
  echo 'start on vagrant-mounted
  exec sudo service tomcat start' > /etc/init/vagrant-mounted.conf
-
+ echo "TOMEE service started"
 }
 
 function maven {
