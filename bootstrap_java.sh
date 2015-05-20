@@ -70,9 +70,23 @@ function tomee {
 	</Resource>
 	</tomee>' > /opt/tomee/conf/tomee.xml
   #sudo chown root: /opt/tomee/conf/tomee.xml # read-only prevent overwrite
+  # JPDA only for debugging
   export JPDA_ADDRESS=8001
   export JPDA_TRANSPORT=dt_socket
-  /opt/tomee/bin/catalina.sh jpda start
+  # autostart service script
+  echo '#!/bin/bash
+  CATALINA_HOME="/opt/tomee"
+  case "$1" in
+    start)      sh $CATALINA_HOME/bin/catalina.sh jpda start;;
+    stop)       sh $CATALINA_HOME/bin/catalina.sh stop;;
+    restart)    sh $CATALINA_HOME/bin/catalina.sh stop
+                sh $CATALINA_HOME/bin/catalina.sh jpda start;;
+    *)           echo $"Usage: $0 {start|stop}";exit 1;;
+   esac' > /etc/init.d/tomcat
+ sudo chmod 755 /etc/init.d/tomcat
+ echo 'start on vagrant-mounted
+ exec sudo service tomcat start' > /etc/init/vagrant-mounted.conf
+
 }
 
 function maven {
