@@ -7,6 +7,7 @@ CACHE_DIR=/vagrant/cache/wget
 
 function clone_projects {
   sudo apt-get install -y git
+  git config --global core.editor "vim"
   cd /vagrant/repo
   git clone http://siataman:@wsz.git.cloudforge.com/hospital.git
   cd hospital/hospitalwidgetset
