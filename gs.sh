@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for D in *; 
+for D in repo/*; 
 do
   if [ -d "${D}" ]; then
 	echo "== GIT STATUS ${D}"
