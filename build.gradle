@@ -1,6 +1,7 @@
-buildDir = 'repo'
+defaultTasks 'eclipse', 'excludeValidation'
 
-subprojects {
+
+configure(subprojects - project('repo')) {
   apply plugin: 'eclipse-wtp'
   eclipse {
     project {
@@ -8,8 +9,11 @@ subprojects {
       buildCommand 'org.eclipse.wst.common.project.facet.core.builder'
     }
     classpath {
-      minusConfigurations += [ 'vendor' ]
     }
+  }
+  task excludeValidation << {
+    File f = file('.settings/org.eclipse.wst.validation.prefs')
+    f.append('disabled=06vendor06wp')
   }
 }
 

@@ -1,1 +1,1 @@
-include 'hospitalplugin', 'epidemio', 'punction', 'hospitalpage', 'hospitaltheme'
+include 'repo:hospitalplugin', 'repo:epidemio', 'repo:punction', 'repo:hospitalpage', 'repo:hospitaltheme'
