@@ -13,7 +13,8 @@ configure(subprojects - project('repo')) {
   }
   task excludeValidation << {
     File f = file('.settings/org.eclipse.wst.validation.prefs')
-    f.append('disabled=06vendor06wp')
+    f.write('disabled=02wp110wp-content06vendor' + System.getProperty("line.separator"))
+    f.append('eclipse.preferences.version=1' + System.getProperty("line.separator"))
   }
 }
 
