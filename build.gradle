@@ -14,18 +14,6 @@ configure(subprojects - project('repo')) {
   eclipsePHP {
     libraryFolders 'vendor', 'wp', 'wp-content'
   }
-  eclipse {
-    project {
-      natures 'org.eclipse.php.core.PHPNature'
-      buildCommand 'org.eclipse.wst.common.project.facet.core.builder'
-    }
-    classpath {
-    }
-    wtp {
-      facet {
-      }
-    }
-  }
 }
 
 
@@ -39,15 +27,20 @@ class EclipsePHPPlugin implements Plugin<Project> {
     configureTask(project)
     project.task('eclipsePHP', type: EclipsePHPTask).dependsOn('eclipse')
     project.task('cleanEclipsePHP', type: CleanEclipsePHPTask).dependsOn('cleanEclipse')
-    // project.getExtensions().getAt('eclipse').getAt('project').getAt('natures')
+    project.getExtensions().getByName('eclipse').getProject().setNatures(['org.eclipse.php.core.PHPNature'])
+    println project.getExtensions().getByName('eclipse').getWtp().getFacet().getProperties()
+    // <buildSpec><buildCommand>
+    //  <name>org.eclipse.wst.common.project.facet.core.builder</name>
+    //<arguments></arguments></buildCommand>
+    //project.getExtensions().getByName('eclipse').getProject().setBuildCommand('org.eclipse.wst.common.project.facet.core.builder')
   }
   
   private void configureTask(Project project) {
-        project.tasks.withType(AbstractEclipsePHPTask) {
-            conventionMapping.map('projectDir') { project.projectDir }
-            conventionMapping.map('libraryFolders') { project.eclipsePHP.libraryFolders } 
-        }
+    project.tasks.withType(AbstractEclipsePHPTask) {
+        conventionMapping.map('projectDir') { project.projectDir }
+        conventionMapping.map('libraryFolders') { project.eclipsePHP.libraryFolders } 
     }
+  }
 }
 class AbstractEclipsePHPTask extends DefaultTask {
   @Input
