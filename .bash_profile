@@ -26,4 +26,5 @@ alias release='mvn -B release:clean release:prepare release:perform'
 alias serwer='ssh serwer@192.168.0.54 -p 1922'
 alias serwersftp='sftp -P 1922 serwer@192.168.0.54'
 alias testserwer='ssh serwer@192.168.1.113'
+alias g='gradle'
 echo "=======================================";
