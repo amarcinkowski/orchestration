@@ -5,78 +5,14 @@ buildscript {
     mavenLocal()
   }
   dependencies {
-//   classpath group: '', name: '', version: ''
+   classpath 'io.github.amarcinkowski:eclipse-php-plugin:1.2.5'
   }
 }
 
 configure(subprojects - project('repo')) {
-  apply plugin: EclipsePHPPlugin
+  apply plugin: 'eclipse-php-plugin'
   eclipsePHP {
     libraryFolders 'vendor', 'wp', 'wp-content'
   }
 }
 
-
-class EclipsePHPPlugin implements Plugin<Project> {
-  static final String PHP_CONFIGURATION_NAME = 'php'
-  
-  @Override
-  void apply(Project project) {
-    project.plugins.apply('eclipse-wtp')
-    project.extensions.create("libraryFolders", EclipsePHPPluginExtension)
-    configureTask(project)
-    project.task('eclipsePHP', type: EclipsePHPTask).dependsOn('eclipse')
-    project.task('cleanEclipsePHP', type: CleanEclipsePHPTask).dependsOn('cleanEclipse')
-    project.getExtensions().getByName('eclipse').getProject().setNatures(['org.eclipse.php.core.PHPNature'])
-    println project.getExtensions().getByName('eclipse').getWtp().getFacet().getProperties()
-    // <buildSpec><buildCommand>
-    //  <name>org.eclipse.wst.common.project.facet.core.builder</name>
-    //<arguments></arguments></buildCommand>
-    //project.getExtensions().getByName('eclipse').getProject().setBuildCommand('org.eclipse.wst.common.project.facet.core.builder')
-  }
-  
-  private void configureTask(Project project) {
-    project.tasks.withType(AbstractEclipsePHPTask) {
-        conventionMapping.map('projectDir') { project.projectDir }
-        conventionMapping.map('libraryFolders') { project.eclipsePHP.libraryFolders } 
-    }
-  }
-}
-class AbstractEclipsePHPTask extends DefaultTask {
-  @Input
-  File projectDir
-  @Input
-  @Optional
-  String[] libraryFolders
-}
-
-class EclipsePHPTask extends AbstractEclipsePHPTask {
-  
-  @TaskAction
-  def eclipsePHP() {
-    def path = getProjectDir().getAbsolutePath()
-    File f = new File( path + "/.settings/org.eclipse.wst.validation.prefs")
-    def folders = "disabled="
-    getLibraryFolders().each {
-      def checksum = it.length() < 10 ? String.format('%02d',it.length()) : String.format('1%02d',it.length())  
-      folders += checksum + it 
-    }
-    f.write(folders + System.getProperty("line.separator"))
-    f.append('eclipse.preferences.version=1' + System.getProperty("line.separator"))
-  }
-}
-
-class CleanEclipsePHPTask extends AbstractEclipsePHPTask {
-  
-  @TaskAction
-  def cleanEclipsePHP()  {
-    def path = getProjectDir().getAbsolutePath()
-    new File(path + "/.settings").deleteDir()
-    new File(path + "/.buildpath").delete()
-    new File(path + "/.classpath").delete()
-  }
-}
-
-class EclipsePHPPluginExtension {
-    String libraryFolders
-}
