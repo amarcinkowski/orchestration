@@ -3,4 +3,5 @@
 ~/.gitkeep
 /.vagrant/
 /.project
+/.gradle
 /cache/*
