@@ -2,15 +2,19 @@ defaultTasks 'eclipsePHP'
 
 buildscript {
   repositories {
-    mavenLocal()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
   }
   dependencies {
-   classpath 'io.github.amarcinkowski:eclipse-php-plugin:1.2.5'
+    classpath "gradle.plugin.io.github.amarcinkowski.eclipse-php:eclipse-php:1.2.9"
   }
 }
 
+
+
 configure(subprojects - project('repo')) {
-  apply plugin: 'eclipse-php-plugin'
+  apply plugin: 'io.github.amarcinkowski.eclipse-php'
   eclipsePHP {
     libraryFolders 'vendor', 'wp', 'wp-content'
   }
