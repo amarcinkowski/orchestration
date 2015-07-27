@@ -15,7 +15,11 @@ end
   end
   config.vm.define "php", primary: true do |php|
     php.vm.network "private_network", ip: "192.168.50.4"
-    php.vm.provision :shell, :path => "bootstrap_php.sh", :args => ENV["GITHUB_OAUTH_TOKEN"] + " " + ENV["GITHUB_USER"], privileged: false
+    if ENV["GITHUB_OAUTH_TOKEN"] and ENV["GITHUB_USER"]
+      php.vm.provision :shell, :path => "bootstrap_php.sh", :args => ENV["GITHUB_OAUTH_TOKEN"] + " " + ENV["GITHUB_USER"], privileged: false
+    else
+      print "Missing GITHUB_OAUTH_TOKEN and GITHUB_USER env vars."
+    end
     php.vm.network :forwarded_port, host: 8000, guest: 80
     php.vm.network :forwarded_port, host: 3306, guest: 3306
   end
