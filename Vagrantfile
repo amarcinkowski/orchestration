@@ -36,5 +36,6 @@ end
     v.memory = 2048
     v.cpus = 2
   end
-  config.vm.synced_folder "repo", "/home/vagrant/repo"
+  config.vm.synced_folder "repo", "/home/vagrant/repo",
+	owner: "www-data", group: "www-data"
 end
