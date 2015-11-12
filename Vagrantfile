@@ -37,5 +37,7 @@ end
     v.cpus = 2
   end
   config.vm.synced_folder "repo", "/home/vagrant/repo",
-	owner: "www-data", group: "www-data"
+	owner: "vagrant",
+	group: "www-data"
+	#,mount_options: ["dmode=775,fmode=664"]
 end
