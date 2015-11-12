@@ -8,7 +8,7 @@ export REPO_DIR=/home/vagrant/repo
 export SCRIPTS_DIR=$APP_DIR/scripts
 github_projects=(hospitalpage hospitalplugin hospitaltheme punction epidemio)
 HP=/var/www/vendor/amarcinkowski/hospitalplugin
-HT=/var/www/wp-content/themes/responsive-child
+HT=/var/www/wp-content/themes/accesspress-parallax-child
 P=/var/www/wp-content/plugins/punction
 E=/var/www/wp-content/plugins/epidemio
 
