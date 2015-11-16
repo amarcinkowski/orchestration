@@ -25,9 +25,10 @@ function wp_prepare {
 
 #run tests
 function run_tests {
-  $SCRIPTS_DIR/install-wp-tests.sh
-  cd $APP_DIR
-  phpunit -c phpunit-wpdb.xml
+  # uncomment 3 lines to run wordpress tests
+  #$SCRIPTS_DIR/install-wp-tests.sh
+  #cd $APP_DIR
+  #phpunit -c phpunit-wpdb.xml
   cd $P
   phpunit
 }
