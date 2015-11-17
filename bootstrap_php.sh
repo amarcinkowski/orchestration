@@ -22,7 +22,7 @@ function wp_prepare {
   $SCRIPTS_DIR/install-dependencies.sh $1
   $SCRIPTS_DIR/install-wp-all.sh
   $SCRIPTS_DIR/install-db.sh
-  $HT/load.sh $PAGE_REPO
+  $SCRIPTS_DIR/load_data.sh $PAGE_REPO
 }
 
 #run tests
