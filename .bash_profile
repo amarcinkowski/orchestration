@@ -1,7 +1,7 @@
 echo "=======================================";
 echo "loading bash profile";
 # wp wp-cli
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export DB_NAME=wordpress
 export DB_USER=root
 export DB_PASSWORD=pass
@@ -9,6 +9,7 @@ export DB_URL="jdbc:mysql://localhost:3306/$DB_NAME?useUnicode=yes&amp;character
 # composer
 export GITHUB_USER=
 export GITHUB_OAUTH_TOKEN=
+export PAGE_REPO=
 # tomcat
 export TOMCATADMINPASSWORD=
 export CATALINA_HOME=/opt/tomcat
