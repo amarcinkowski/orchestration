@@ -10,6 +10,7 @@ export DB_URL="jdbc:mysql://localhost:3306/$DB_NAME?useUnicode=yes&amp;character
 export PAGE_REPO=https://wsz.git.cloudforge.com/page.git
 export GITHUB_USER=
 export GITHUB_OAUTH_TOKEN=
+export PAGE_REPO=
 # tomcat
 export TOMCATADMINPASSWORD=
 export CATALINA_HOME=/opt/tomcat
