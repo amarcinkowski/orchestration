@@ -14,7 +14,9 @@ function clone_repos {
 
 function replace_lib_with_git {
   rm -rf $1
+  echo "removing $1"
   ln -s ~/repo/$2 $1
+  echo "replacing ${1} with ~/repo/$2"
 }
 
 
