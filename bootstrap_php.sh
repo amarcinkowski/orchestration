@@ -7,7 +7,7 @@ echo "=============== $GITHUB_USER"
 export APP_DIR=/var/www
 export REPO_DIR=/home/vagrant/repo
 export SCRIPTS_DIR=$APP_DIR/scripts
-github_projects=(hospitalhub/hospitalpage amarcinkowski/hospitalplugin hospitalhub/hospitaltheme amarcinkowski/punction amarcinkowski/epidemio)
+github_projects=(hospitalhub/hospitalpage amarcinkowski/hospitalplugin hospitalhub/hospitaltheme hospitalhub/punction hospitalhub/epidemio)
 HP=/var/www/vendor/amarcinkowski/hospitalplugin
 HT=/var/www/wp-content/themes/accesspress-parallax-child
 P=/var/www/wp-content/plugins/punction
