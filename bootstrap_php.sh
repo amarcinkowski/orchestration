@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export PATH=$PATH:.:~
 GITHUB_TOKEN=$1
 export GITHUB_USER=$2 || amarcinkowski
 PAGE_REPO=$3
