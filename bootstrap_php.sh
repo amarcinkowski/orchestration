@@ -44,7 +44,7 @@ source $APP_DIR/resources/.env.bash
 sudo apt-get update
 sudo $SCRIPTS_DIR/install-server.sh
 wp_prepare $GITHUB_TOKEN
-if [ "$DEV" -eq "true" ]; then
+if [ "$DEV" == "true" ]; then
   replace_lib_with_git $HP hospitalplugin
   replace_lib_with_git $HT hospitaltheme
   replace_lib_with_git $P punction
