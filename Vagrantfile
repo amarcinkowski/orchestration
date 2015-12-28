@@ -15,8 +15,13 @@ end
   end
   config.vm.define "php", primary: true do |php|
     php.vm.network "private_network", ip: "192.168.50.4"
+    if ENV["DEV"] == "true"
+	dev = "true"
+    else
+	dev = "false"
+    end
     if ENV["GITHUB_OAUTH_TOKEN"] and ENV["GITHUB_USER"] and ENV["PAGE_REPO"]
-      php.vm.provision :shell, :path => "bootstrap_php.sh", :args => ENV["GITHUB_OAUTH_TOKEN"] + " " + ENV["GITHUB_USER"] + " " + ENV["PAGE_REPO"], privileged: false
+      php.vm.provision :shell, :path => "bootstrap_php.sh", :args => ENV["GITHUB_OAUTH_TOKEN"] + " " + ENV["GITHUB_USER"] + " " + ENV["PAGE_REPO"] + " " + dev, privileged: false
     else
       print "Missing GITHUB_OAUTH_TOKEN, GITHUB_USER or PAGE_REPO env vars."
     end
