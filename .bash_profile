@@ -14,6 +14,8 @@ export DEV=true
 export TOMCATADMINPASSWORD=
 export CATALINA_HOME=/opt/tomcat
 export CATALINA_OPTS="-Xms=512M -Xmx=1024M"
+export GOPATH=/usr/lib/go/gopath
+export PATH=$GOPATH/bin:$PATH
 # wp
 export AUTH_KEY=
 export SECURE_AUTH_KEY=
