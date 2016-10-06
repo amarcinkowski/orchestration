@@ -17,14 +17,16 @@ end
     php.vm.network "private_network", ip: "192.168.50.4"
     if ENV["DEV"] == "true"
 	dev = "true"
+	args = dev + " " + ENV["GITHUB_OAUTH_TOKEN"] + " " + ENV["GITHUB_USER"] + " " + ENV["PAGE_REPO"]
     else
 	dev = "false"
+	args = dev
     end
-    if ENV["GITHUB_OAUTH_TOKEN"] and ENV["GITHUB_USER"] and ENV["PAGE_REPO"]
-      php.vm.provision :shell, :path => "bootstrap_php.sh", :args => ENV["GITHUB_OAUTH_TOKEN"] + " " + ENV["GITHUB_USER"] + " " + ENV["PAGE_REPO"] + " " + dev, privileged: false
-    else
-      print "Missing GITHUB_OAUTH_TOKEN, GITHUB_USER or PAGE_REPO env vars."
-    end
+#    if ENV["GITHUB_OAUTH_TOKEN"] and ENV["GITHUB_USER"] and ENV["PAGE_REPO"]
+    php.vm.provision :shell, :path => "bootstrap_php.sh", :args => args, privileged: false
+#    else
+#      print "Missing GITHUB_OAUTH_TOKEN, GITHUB_USER or PAGE_REPO env vars."
+#    end
     php.vm.network :forwarded_port, host: 8000, guest: 80
     php.vm.network :forwarded_port, host: 3306, guest: 3306
   end

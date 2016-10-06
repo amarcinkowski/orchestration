@@ -1,9 +1,9 @@
 #!/bin/bash
 export PATH=$PATH:.:~
-GITHUB_TOKEN=$1
-export GITHUB_USER=$2 || amarcinkowski
-PAGE_REPO=$3
-DEV=$4
+DEV=$1
+GITHUB_TOKEN=$2
+export GITHUB_USER=$3 || amarcinkowski
+PAGE_REPO=$4
 echo "=============== $GITHUB_USER"
 echo "dev:$DEV"
 export APP_DIR=/var/www
